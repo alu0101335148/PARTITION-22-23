@@ -1,7 +1,7 @@
 using System;
 
 namespace src {
-  class Partition {
+  public class Partition {
     // Números que se tienen que dividir en dos grupos iguales
     private ulong[] numbers;
     
@@ -9,15 +9,15 @@ namespace src {
       numbers = numberList;
     }
 
-    public int WriteToFile(string outputFileName)  {
-      string jsonString = JsonSerializer.Serialize(
-        destination, 
-        new JsonSerializerOptions() { WriteIndented = true }
-      );
-      using (StreamWriter outputFile = new StreamWriter(outputFileName))
-      {
-        outputFile.WriteLine(jsonString);
-      }
-    }
+    // public int WriteToFile(string outputFileName)  {
+    //   string jsonString = JsonSerializer.Serialize(
+    //     destination, 
+    //     new JsonSerializerOptions() { WriteIndented = true }
+    //   );
+    //   using (StreamWriter outputFile = new StreamWriter(outputFileName))
+    //   {
+    //     outputFile.WriteLine(jsonString);
+    //   }
+    // }
   }
 }
