@@ -1,36 +1,56 @@
-/**
- * Universidad de La Laguna
- * Escuela Superior de Ingeniería y Tecnología
- * Grado en Ingeniería Informática
- * Asignatura: Complejidad Computacional
- * Curso: 2022-2023
- * Práctica Módulo 2: 3DM a Partition
- * Autores:
- *  - Airam Rafael Luque León
- *  - Lucas Hernández Abreu
- *  - Juan Salvador Magariños Alba
- *  - Alejandro García Perdomo
- * Descipción: 
- * Clase encargada de representar los conjuntos del problema 3DM
- */
-
 using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+// https://zetcode.com/csharp/json/
+
+/*
+  class _3DM {
+    private:
+      uint sizeM;             ## Tamaño del conjunto de tripletas
+      uint sizeXYZ;           ## Tamaño de los conjuntos
+      string[] wSet;          ## Conjunto "W"
+      string[] xSet;          ## Conjunto "X"
+      string[] ySet;          ## Conjunto "Y"
+      string[,] mSet;         ## Conjunto de tripletas "M"
+    public:
+      _3DM(string)            ## Constructor de la clase, recibe un nombre de archivo como entrada
+ }
+*/
+
 
 namespace src {
-  class _3DM {
 
-    private uint sizeM;
-    private uint sizeXYZ;
-    private string[] wSet;
-    private string[] xSet;
-    private string[] ySet;
-    private string[,] mSet;
+  public struct Triplet {
+    public string x;
+    public string y;
+    public string z;
+      public Triplet(string nx, string ny, string nz) { x = nx; y = ny; z = nz; }
+      public override string ToString() => $"({x}, {y}, {z})";
+  }
+  class _3DM {
+    private uint sizeM_;
+    private uint sizeXYZ_;
+    private string[] wSet_; 
+    private string[] xSet_; 
+    private string[] ySet_; 
+    private string[,] mSet_; 
     
-    // Constructor
     public _3DM(string inputFileName) {
-      
+
+      using (StreamReader r = new StreamReader(inputFileName)) {
+          string json = r.ReadToEnd();
+          source = JsonSerializer.Deserialize<List<Input>>(json);
+      }
+    }
+
+    public uint GetMSize() {
+      return sizeXYZ_;
     }
 
 
+    public uint GetXYZSize() {
+      return sizeM_;
+    }
+    
   }
 }
