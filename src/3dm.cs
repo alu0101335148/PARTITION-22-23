@@ -36,6 +36,10 @@ namespace src {
       mSet_ = jsonMap["mSet"];
       sizeM_ = (uint) mSet_.Length;
       sizeXYZ_ = (uint) xSet_.Length;
+
+      // Conjunto M de ejemplo para utilizar hasta que hayamos arreglado lo del JSON
+      // mSet_ = new string[4, 3] {{"a", "2", "β"}, { "b", "1", "γ"}, {"c", "3", "α"}, {"a", "1", "α"}};
+      // sizeM_ = 4;
     }
 
     /// <summary>
@@ -61,12 +65,52 @@ namespace src {
       }
     }
 
+    /// <summary>
+    /// Method to get the number of triplets in the M set
+    /// </summary>
     public uint GetMSize() {
       return sizeM_;
     }
 
+    /// <summary>
+    /// Method to get the cardinality of the W, X and Y sets
+    /// </summary>
     public uint GetXYZSize() {
       return sizeXYZ_;
+    }
+
+    /// <summary>
+    /// Method to get the number that is associated to a certain element of a set
+    /// </summary>
+    public int GetElementPositionInSet(string element, string setName)
+    {
+      switch (setName)
+      {
+        case "w":
+          return Array.IndexOf(wSet_, element);
+        case "x":
+          return Array.IndexOf(xSet_, element);
+        case "y":
+          return Array.IndexOf(ySet_, element);
+        default:
+          throw new Exception("El conjunto " + setName + " no existe.");
+      }
+    }
+
+    /// <summary>
+    /// Method to get an element, given a position and a triplet
+    /// </summary>
+    public string GetElement(int triplet, int position)
+    {
+      if ((triplet < 0) || (triplet >= sizeM_))
+      {
+        throw new Exception("No existe la tripleta nº " + triplet);
+      }
+      if ((position < 0) || (position > 2))
+      {
+        throw new Exception("No existe la posición nº " + position + " en las tripletas.");
+      }
+      return mSet_[triplet, position];
     }
     
     public void print() {
