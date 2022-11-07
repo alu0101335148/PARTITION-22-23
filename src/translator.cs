@@ -1,5 +1,3 @@
-using System;
-
 namespace src {
   /// <summary>
   /// Clase encargada de realizar la transformación entre una instancia del problema 3DM y una de PARTITION
