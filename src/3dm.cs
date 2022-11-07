@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
 
 namespace src {
@@ -57,8 +55,7 @@ namespace src {
              throw new ArgumentNullException(errorMessage +  "(mSet)");
 
       if (wSet.Length != xSet.Length || 
-          wSet.Length != ySet.Length || 
-          wSet.Length != mSet.Length) {
+          wSet.Length != ySet.Length) {
         throw new ArgumentException(
           errorMessage + "(The w, x and y sets must have the same length)"
         );
@@ -110,7 +107,7 @@ namespace src {
       {
         throw new Exception("No existe la posición nº " + position + " en las tripletas.");
       }
-      return mSet_[triplet, position];
+      return mSet_[position];
     }
     
     public void print() {
