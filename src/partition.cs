@@ -1,5 +1,5 @@
 /// <summary>
-///   Universidad de La Laguna
+///  Universidad de La Laguna
 ///  Escuela Superior de Ingeniería y Tecnología
 ///  Grado en Ingeniería Informática
 ///  Asignatura: Complejidad Computacional
