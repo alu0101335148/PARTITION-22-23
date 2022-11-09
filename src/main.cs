@@ -31,7 +31,8 @@ namespace src {
         _3DM instance3DM = new _3DM(inputFilePath);
         instance3DM.print();
         // Partition instancePartition = new Partition(new ulong[]{1,2,3,4});
-        // Translator.Translate3DMToPartition(instance3DM);
+        Partition instancePartition = Translator.Translate3DMToPartition(instance3DM);
+        Console.WriteLine("ª");
         // instancePartition.WriteToFile(outputFileName);
       }
       catch (System.Exception) {

@@ -10,7 +10,7 @@ namespace src {
     /// 
     /// DEBERÍA DEVOLVER UNA INSTANCIA DEL PARTITION
     /// </summary>
-    public static void Translate3DMToPartition(_3DM original_problem) {
+    public static Partition Translate3DMToPartition(_3DM original_problem) {
       uint sizeM = original_problem.GetMSize(); // nº de tripletas de M (k)
       double numberOfBits = Math.Log(sizeM + 1.0f, 2f); // nº de bits por elemento (p)
       if (numberOfBits % 1 == 0)
@@ -26,10 +26,11 @@ namespace src {
       // Conversión a binario y cálculo de la suma total de los s(a)
       ulong sum = 0;
       List<ulong> binaries = new List<ulong>();
+      const uint one = 1;
+
       for (int triplet = 0; triplet < sizeM; ++triplet)
       {
         ulong newNumber = 0;
-        const uint one = 1;
 
         // se extraen los elementos de la tripleta
         string firstElement = original_problem.GetElement(triplet, 0);
@@ -53,10 +54,27 @@ namespace src {
         sum += newNumber;
       }
 
-      // Con esto se calculan las s(a) y el valor C. Lo único que queda por hacer de la traducción es calcular la B
-      // y usarla para obtener B1 y B2
+      // Cálculo de B
+      ulong matchingChecker = 0;
 
-      Console.WriteLine("aa");
+      for (int currentSet = 2; currentSet >= 0; currentSet--)
+      {
+          for (int currentElement = (int)sizeXYZ - 1; currentElement >= 0; currentElement--)
+          {
+              int shift = (int)(((currentSet * numberOfBits * 3) + ((2 - currentElement) * numberOfBits)));
+              matchingChecker |= one << shift;
+          }
+      }
+
+      // Cálculo de b1 y b2
+      ulong b1 = 2 * sum - matchingChecker;
+      ulong b2 = sum + matchingChecker;
+
+      // Creación del Partition
+      numbers.Add(b1);
+      numbers.Add(b2);
+
+      return new Partition(numbers.ToArray(), "RELLENAR CON EL FICHERO DE SALIDA");
     }
   }
 }
