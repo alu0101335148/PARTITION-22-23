@@ -1,3 +1,20 @@
+/// <summary>
+///   Universidad de La Laguna
+///  Escuela Superior de Ingeniería y Tecnología
+///  Grado en Ingeniería Informática
+///  Asignatura: Complejidad Computacional
+///  Curso: 2022-2023
+///  Práctica Módulo 2: 3DM a Partition
+///  Autores:
+///   - Airam Rafael Luque León
+///   - Lucas Hernández Abreu
+///   - Juan Salvador Magariños Alba
+///   - Alejandro García Perdomo
+///  Descipción: 
+///  Clase que se encarga de representar una instancia del problema Partition
+/// </summary>
+
+
 using System.Text.Json;
 
 namespace src {
@@ -21,13 +38,9 @@ namespace src {
     /// outputFileName: Ruta del archivo de salida
     /// </summary>
     public void WriteToFile(string outputFilePath)  {
-      string jsonString = JsonSerializer.Serialize(
-        outputFilePath, 
-        new JsonSerializerOptions() { WriteIndented = true }
-      );
-      using (StreamWriter outputFile = new StreamWriter(outputFilePath)) {
-        outputFile.WriteLine(jsonString);
-      }
+      Console.WriteLine("Lenght: " + numbers_.Length);
+      string jsonString = JsonSerializer.Serialize(numbers_);
+      File.WriteAllText(outputFilePath, jsonString);
     }
   }
 }

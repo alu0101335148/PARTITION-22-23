@@ -1,3 +1,19 @@
+/// <summary>
+///  Universidad de La Laguna
+///  Escuela Superior de Ingeniería y Tecnología
+///  Grado en Ingeniería Informática
+///  Asignatura: Complejidad Computacional
+///  Curso: 2022-2023
+///  Práctica Módulo 2: 3DM a Partition
+///  Autores:
+///   - Airam Rafael Luque León
+///   - Lucas Hernández Abreu
+///   - Juan Salvador Magariños Alba
+///   - Alejandro García Perdomo
+///  Descipción: 
+///  Clase que controla el problema principal
+/// </summary>
+
 namespace src {
   public class Program {
     /// <summary>
@@ -30,10 +46,8 @@ namespace src {
       try {
         _3DM instance3DM = new _3DM(inputFilePath);
         instance3DM.print();
-        // Partition instancePartition = new Partition(new ulong[]{1,2,3,4});
         Partition instancePartition = Translator.Translate3DMToPartition(instance3DM);
-        Console.WriteLine("ª");
-        // instancePartition.WriteToFile(outputFileName);
+        instancePartition.WriteToFile(outputFilePath);
       }
       catch (System.Exception) {
         ShowHelp();

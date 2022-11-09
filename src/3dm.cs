@@ -1,3 +1,19 @@
+/// <summary>
+///  Universidad de La Laguna
+///  Escuela Superior de Ingeniería y Tecnología
+///  Grado en Ingeniería Informática
+///  Asignatura: Complejidad Computacional
+///  Curso: 2022-2023
+///  Práctica Módulo 2: 3DM a Partition
+///  Autores:
+///   - Airam Rafael Luque León
+///   - Lucas Hernández Abreu
+///   - Juan Salvador Magariños Alba
+///   - Alejandro García Perdomo
+///  Descipción: 
+///  Clase encargada de representar los conjuntos del problema 3DM
+/// <summary>
+
 using System.Text.Json;
 
 namespace src {
@@ -10,7 +26,7 @@ namespace src {
     private string[] wSet_; 
     private string[] xSet_; 
     private string[] ySet_; 
-    private string[] mSet_; 
+    private string[,] mSet_; 
 
     /// <summary>
     /// Constructor de la clase 3DM, lee el archivo de entrada y asigna los
@@ -20,7 +36,7 @@ namespace src {
     public _3DM(string inputFileName) {
       // Read the json file an create a dictionary with the values of the file
       string jsonString = File.ReadAllText(inputFileName);
-      Dictionary<string, String[]> jsonMap = 
+      var jsonMap = 
         JsonSerializer.Deserialize<Dictionary<string, String[]>>(jsonString)
         ?? throw new ArgumentNullException("Error: Invalid input file");
 
@@ -28,16 +44,17 @@ namespace src {
       CheckValues(jsonMap);
 
       // Assign the values to the attributes
+      sizeM_ = (uint)jsonMap["mSet"].Length;
       wSet_ = jsonMap["wSet"];
       xSet_ = jsonMap["xSet"];
       ySet_ = jsonMap["ySet"];
-      mSet_ = jsonMap["mSet"];
-      sizeM_ = (uint) mSet_.Length;
+      mSet_ = new string[sizeM_, 3];
+      for (int i = 0; i < sizeM_; i++) {
+        for (int j = 0; j < 3; j++) {
+          mSet_[i, j] = jsonMap["mSet"][i][j].ToString();
+        }
+      }
       sizeXYZ_ = (uint) xSet_.Length;
-
-      // Conjunto M de ejemplo para utilizar hasta que hayamos arreglado lo del JSON
-      // mSet_ = new string[4, 3] {{"a", "2", "β"}, { "b", "1", "γ"}, {"c", "3", "α"}, {"a", "1", "α"}};
-      // sizeM_ = 4;
     }
 
     /// <summary>
@@ -79,10 +96,8 @@ namespace src {
     /// <summary>
     /// Method to get the number that is associated to a certain element of a set
     /// </summary>
-    public int GetElementPositionInSet(string element, string setName)
-    {
-      switch (setName)
-      {
+    public int GetElementPositionInSet(string element, string setName) {
+      switch (setName) {
         case "w":
           return Array.IndexOf(wSet_, element);
         case "x":
@@ -97,17 +112,15 @@ namespace src {
     /// <summary>
     /// Method to get an element, given a position and a triplet
     /// </summary>
-    public string GetElement(int triplet, int position)
-    {
-      if ((triplet < 0) || (triplet >= sizeM_))
-      {
+    public string GetElement(int triplet, int position) {
+      if ((triplet < 0) || (triplet >= sizeM_)) {
         throw new Exception("No existe la tripleta nº " + triplet);
       }
-      if ((position < 0) || (position > 2))
-      {
-        throw new Exception("No existe la posición nº " + position + " en las tripletas.");
+      if ((position < 0) || (position > 2)) {
+        throw new Exception("No existe la posición nº " + position + 
+          " en las tripletas.");
       }
-      return mSet_[position];
+      return mSet_[triplet,position];
     }
     
     public void print() {
@@ -116,7 +129,13 @@ namespace src {
       Console.WriteLine("wSet: " + string.Join(", ", wSet_));
       Console.WriteLine("xSet: " + string.Join(", ", xSet_));
       Console.WriteLine("ySet: " + string.Join(", ", ySet_));
-      Console.WriteLine("mSet: " + string.Join(", ", mSet_));
+      Console.WriteLine("mSet: ");
+      for (int i = 0; i < sizeM_; i++) {
+        for (int j = 0; j < 3; j++) {
+          Console.Write(mSet_[i, j] + " ");
+        }
+        Console.WriteLine();
+      }
     }
   }
 }
