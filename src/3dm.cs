@@ -123,7 +123,7 @@ namespace src {
       return mSet_[triplet,position];
     }
     
-    public void print() {
+    public void Print() {
       Console.WriteLine("sizeM: " + sizeM_);
       Console.WriteLine("sizeXYZ: " + sizeXYZ_);
       Console.WriteLine("wSet: " + string.Join(", ", wSet_));

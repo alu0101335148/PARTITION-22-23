@@ -17,10 +17,10 @@
 namespace src {
   public class Program {
     /// <summary>
-    // Recibe los archivos de entrada y salida, lee el de entrada y crea las 
-    // instancias de la clase 3DM y translator, al que le pasa la instancia 3DM
-    // para que retorne una reduccón del 3DM a partition y la imprima en el 
-    // archivo de salida
+    /// Recibe los archivos de entrada y salida, lee el de entrada y crea las 
+    /// instancias de la clase 3DM y translator, al que le pasa la instancia 3DM
+    /// para que retorne una reduccón del 3DM a partition y la imprima en el 
+    /// archivo de salida
     /// </summary>
     static void Main(string[] args) {
       String inputFilePath = "";
@@ -45,7 +45,7 @@ namespace src {
 
       try {
         _3DM instance3DM = new _3DM(inputFilePath);
-        instance3DM.print();
+        instance3DM.Print();
         Partition instancePartition = Translator.Translate3DMToPartition(instance3DM);
         instancePartition.WriteToFile(outputFilePath);
       }
@@ -54,6 +54,10 @@ namespace src {
         throw;
       }
     }
+
+    /// <summary>
+    /// Método que muestra la ayuda del programa
+    /// </summary>
     static void ShowHelp() {
       Console.WriteLine("Usage: dotnet run <input_file> [output_file]");
     }
