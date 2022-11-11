@@ -24,16 +24,15 @@ namespace src {
     /// <summary>
     /// Método estático que lleva a cabo la conversión de un problema a otro. 
     /// original_problem: instancia del 3DM que se va a transformar
+    /// Devuelve una instancia de la clase Partition
     /// </summary>
     public static Partition Translate3DMToPartition(_3DM original_problem) {
       // nº de tripletas de M (k)
       uint sizeM = original_problem.GetMSize(); 
       // nº bits por elemento (p)
-      double numberOfBits = Math.Log(sizeM + 1.0f, 2f);
-      if (numberOfBits % 1 == 0) { numberOfBits += 1; }
-      else { numberOfBits = Math.Ceiling(numberOfBits); }
-      // cardinalidad de los conjuntos W, X e Y
-      uint sizeXYZ = original_problem.GetXYZSize(); 
+      double numberOfBits = Math.Ceiling(Math.Log(sizeM + 1.0f, 2f));
+      // cardinalidad de los conjuntos W, X e Y (q)
+      uint sizeWXY = original_problem.GetWXYSize(); 
 
       // Conversión a binario y cálculo de la suma total de los s(a)
       ulong sum = 0;
@@ -58,15 +57,11 @@ namespace src {
 
         // se crea el número binario que corresponde a la tripleta, y su valor
         // se añade al total
-        int firstShift = (int)(((2 * numberOfBits * 3) + 
-            ((2 - firstPosition) * numberOfBits)));
-        int secondShift = (int)(((1 * numberOfBits * 3) + 
-            ((2 - secondPosition) * numberOfBits)));
-        int thirdShift = (int)((((2 - thirdPosition) * numberOfBits)));
+        ulong first = (ulong)(Math.Pow(2, (numberOfBits * (3 * sizeWXY - firstPosition - 1))));
+        ulong second = (ulong)(Math.Pow(2, (numberOfBits * (2 * sizeWXY - secondPosition - 1))));
+        ulong third = (ulong)(Math.Pow(2, (numberOfBits * (sizeWXY - thirdPosition - 1))));
 
-        newNumber |= (one << firstShift);
-        newNumber |= (one << secondShift);
-        newNumber |= (one << thirdShift);
+        newNumber = first + second + third;
         numbers.Add(newNumber);
         sum += newNumber;
       }
@@ -75,7 +70,7 @@ namespace src {
       ulong matchingChecker = 0;
 
       for (int currentSet = 2; currentSet >= 0; currentSet--)  {
-        for (int currentElement = (int)sizeXYZ - 1; 
+        for (int currentElement = (int)sizeWXY - 1; 
              currentElement >= 0; 
              currentElement--) 
         {

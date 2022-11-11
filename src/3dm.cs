@@ -22,7 +22,7 @@ namespace src {
   /// </summary>
   public class _3DM {
     private uint sizeM_;
-    private uint sizeXYZ_;
+    private uint sizeWXY_;
     private string[] wSet_; 
     private string[] xSet_; 
     private string[] ySet_; 
@@ -54,7 +54,7 @@ namespace src {
           mSet_[i, j] = jsonMap["mSet"][i][j].ToString();
         }
       }
-      sizeXYZ_ = (uint) xSet_.Length;
+      sizeWXY_ = (uint) xSet_.Length;
     }
 
     /// <summary>
@@ -89,8 +89,8 @@ namespace src {
     /// <summary>
     /// Method to get the cardinality of the W, X and Y sets
     /// </summary>
-    public uint GetXYZSize() {
-      return sizeXYZ_;
+    public uint GetWXYSize() {
+      return sizeWXY_;
     }
 
     /// <summary>
@@ -125,7 +125,7 @@ namespace src {
     
     public void Print() {
       Console.WriteLine("sizeM: " + sizeM_);
-      Console.WriteLine("sizeXYZ: " + sizeXYZ_);
+      Console.WriteLine("sizeWXY: " + sizeWXY_);
       Console.WriteLine("wSet: " + string.Join(", ", wSet_));
       Console.WriteLine("xSet: " + string.Join(", ", xSet_));
       Console.WriteLine("ySet: " + string.Join(", ", ySet_));
