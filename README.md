@@ -178,4 +178,6 @@ dotnet run <input.json> [output.json]
 
 ## 6. Referencias
 
+* Garey, M. R., & Johnson, D. S. (2000). Computers and Intractability: A Guide to the Theory of NP-completeness (22.a ed.). W. H. Freeman and Company
+
 * [NP-completeness Proff for 3DM, VC, CLIQUE, HC and PARTITION](https://engineering.purdue.edu/kak/ComputabilityComplexityLanguages/Lecture30.pdf)
