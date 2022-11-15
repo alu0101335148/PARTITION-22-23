@@ -18,7 +18,7 @@ using System.Text.Json;
 
 namespace src {
   /// <summary>
-  /// Clase que representa un 3DM
+  /// Clase que representa una instancia del problema 3DM
   /// </summary>
   public class _3DM {
     private uint sizeM_;
@@ -34,16 +34,16 @@ namespace src {
     /// inputFilePath: Ruta del archivo de entrada
     /// </summary>
     public _3DM(string inputFileName) {
-      // Read the json file an create a dictionary with the values of the file
+      // Lee el archivo JSON y crea un diccionario con sus valores
       string jsonString = File.ReadAllText(inputFileName);
       var jsonMap = 
         JsonSerializer.Deserialize<Dictionary<string, String[]>>(jsonString)
         ?? throw new ArgumentNullException("Error: Invalid input file");
 
-      // Extract the values from the json and check if they are valid
+      // Extrae los valores del JSON y comprueba si son válidos
       CheckValues(jsonMap);
 
-      // Assign the values to the attributes
+      // Asigna los valores a los atributos
       sizeM_ = (uint)jsonMap["mSet"].Length;
       wSet_ = jsonMap["wSet"];
       xSet_ = jsonMap["xSet"];
@@ -58,7 +58,8 @@ namespace src {
     }
 
     /// <summary>
-    /// Check the values of the json file and return true if they are valid
+    /// Método que comprueba si los valores del JSON son correctos, devolviendo true si
+    /// es así
     /// </summary>
     private void CheckValues(Dictionary<string, String[]> jsonMap) {
       string errorMessage = "Error: Invalid input file";
@@ -80,21 +81,21 @@ namespace src {
     }
 
     /// <summary>
-    /// Method to get the number of triplets in the M set
+    /// Getter de la cardinalidad del conjunto M
     /// </summary>
     public uint GetMSize() {
       return sizeM_;
     }
 
     /// <summary>
-    /// Method to get the cardinality of the W, X and Y sets
+    /// Getter de la cardinalidad de los conjuntos W, X e Y
     /// </summary>
     public uint GetWXYSize() {
       return sizeWXY_;
     }
 
     /// <summary>
-    /// Method to get the number that is associated to a certain element of a set
+    /// Método para obtener el número asociado a un elemento en un conjunto
     /// </summary>
     public int GetElementPositionInSet(string element, string setName) {
       switch (setName) {
@@ -105,24 +106,26 @@ namespace src {
         case "y":
           return Array.IndexOf(ySet_, element);
         default:
-          throw new Exception("El conjunto " + setName + " no existe.");
+          throw new Exception("The set " + setName + " does not exist.");
       }
     }
 
     /// <summary>
-    /// Method to get an element, given a position and a triplet
+    /// Método que devuelve el elemento de una posición determinada en una tripleta
     /// </summary>
     public string GetElement(int triplet, int position) {
       if ((triplet < 0) || (triplet >= sizeM_)) {
-        throw new Exception("No existe la tripleta nº " + triplet);
+        throw new Exception("The triplet number " + triplet + " does not exist.");
       }
       if ((position < 0) || (position > 2)) {
-        throw new Exception("No existe la posición nº " + position + 
-          " en las tripletas.");
+        throw new Exception("Triplets can't be indexed with the number " + position);
       }
       return mSet_[triplet,position];
     }
     
+    /// <summary>
+    /// Método que imprime los conjuntos del 3DM
+    /// </summary>
     public void Print() {
       Console.WriteLine("sizeM: " + sizeM_);
       Console.WriteLine("sizeWXY: " + sizeWXY_);

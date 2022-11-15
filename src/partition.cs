@@ -19,14 +19,14 @@ using System.Text.Json;
 
 namespace src {
   /// <summary>
-  /// Clase que representa un 3DM
+  /// Clase que representa una instancia del problema Partition
   /// </summary>
   public class Partition {
     // Números que se tienen que dividir en dos grupos iguales
     private ulong[] numbers_;
     
     /// <summary>
-    /// Constructor de la clase 3DM que recibe los números que se tienen que
+    /// Constructor de la clase Partition que recibe los números que se tienen que
     /// dividir en dos grupos iguales
     /// </summary>
     public Partition(ulong[] numberList) {
